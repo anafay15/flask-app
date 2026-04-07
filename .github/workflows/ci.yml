@@ -25,4 +25,12 @@ jobs:
             echo "App failed to start" && exit 1
 
       - name: Shut down Docker container
-        run: docker stop flask-container && docker rm flask-container     
+        run: docker stop flask-container && docker rm flask-container  
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push image to Docker Hub
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/flask-app:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/flask-app:latest   
