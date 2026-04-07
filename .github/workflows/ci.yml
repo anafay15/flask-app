@@ -25,4 +25,4 @@ jobs:
             echo "App failed to start" && exit 1
 
       - name: Shut down Docker container
-        run: docker stop flask-container && docker rm flask-container     
+        run: docker stop flask-app && docker rm flask-app     
